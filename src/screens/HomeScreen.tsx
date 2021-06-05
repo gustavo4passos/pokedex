@@ -1,29 +1,31 @@
-import React from 'react'
-import { View, StyleSheet, Text } from 'react-native'
+import React from 'react';
+import styled from 'styled-components/native';
 
 interface IHomeScreenProps {
-    navigation: any
+  navigation: any
 }
+
+const Container = styled.View`
+  display: flex;
+  height: 100%;
+  background-color: #189AB4;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+`;
+
+const Title = styled.Text`
+  font-size: 20px;
+  color: white;
+  font-weight: bold;
+`;
 
 const HomeScreen = (props: IHomeScreenProps) => {
-    return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Pokedex</Text>
-        </View>)
-}
-
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#189AB4',
-      alignItems: 'center',
-      justifyContent: 'flex-start',
-      padding: 20
-    },
-    title: {
-        fontSize: 20,
-        fontWeight: 'bold'
-    }
-  });
+  return (
+    <Container>
+      <Title>Pokedex</Title>
+    </Container>
+  );
+};
 
 export default HomeScreen;
