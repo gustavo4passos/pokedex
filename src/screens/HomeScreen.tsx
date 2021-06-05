@@ -1,16 +1,8 @@
-import React from 'react'
-import styled from "styled-components/native";
+import React from 'react';
+import styled from 'styled-components/native';
 
 interface IHomeScreenProps {
   navigation: any
-}
-
-const HomeScreen = (props: IHomeScreenProps) => {
-  return (
-    <Container>
-      <Title>Pokedex</Title>
-    </Container>
-  )
 }
 
 const Container = styled.View`
@@ -20,12 +12,20 @@ const Container = styled.View`
   align-items: center;
   justify-content: center;
   padding: 20px;
-`
+`;
 
 const Title = styled.Text`
   font-size: 20px;
   color: white;
   font-weight: bold;
-`
+`;
+
+const HomeScreen = (props: IHomeScreenProps) => {
+  return (
+    <Container>
+      <Title>Pokedex</Title>
+    </Container>
+  );
+};
 
 export default HomeScreen;
