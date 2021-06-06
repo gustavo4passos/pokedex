@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { ActivityIndicator } from 'react-native';
 
 import api from '../../../../services/api';
 
@@ -30,6 +31,7 @@ interface Pokemon {
 
 const PokemonCard = (props: IPokemonCardProrps) => {
   const [pokemon, setPokemon] = useState<Pokemon>();
+  const [loading, setLoading] = useState(false);
 
   const getInfos = async () => {
     const response = await api.get(String(props.url));
@@ -40,29 +42,35 @@ const PokemonCard = (props: IPokemonCardProrps) => {
   };
 
   useEffect(() => {
+    setLoading(true);
     getInfos();
+    setLoading(false);
   }, []);
 
   return (
     <Container pokemonType={pokemon?.types[0].type.name || 'eletric'}>
       <Title>{props.name}</Title>
+      {
+        loading
+          ? <ActivityIndicator color="#00ff00" size="large" />
+          : <InfosContainer>
+            <Thumb source={{ uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon?.id || 1}.png` }} />
+            <TypesContainer>
+              {
+                pokemon?.types.map(type => {
+                  return (
+                    <TypeTag key={type.type.name} pokemonType={pokemon?.types[0].type.name}>
+                      <TypeText>
+                        {type.type.name}
+                      </TypeText>
+                    </TypeTag>
+                  );
+                })
+              }
+            </TypesContainer>
 
-      <InfosContainer>
-        <Thumb source={{ uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon?.id || 1}.png` }} />
-        <TypesContainer>
-          {
-            pokemon?.types.map(type => {
-              return (
-                <TypeTag key={type.type.name} pokemonType={pokemon?.types[0].type.name}>
-                  <TypeText>
-                    {type.type.name}
-                  </TypeText>
-                </TypeTag>
-              );
-            })
-          }
-        </TypesContainer>
-      </InfosContainer>
+          </InfosContainer>
+      }
     </Container>
   );
 };
