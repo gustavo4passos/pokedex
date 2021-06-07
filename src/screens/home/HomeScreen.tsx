@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PokemonCard from './components/pokemonCard/PokemonCard';
 
 import { ActivityIndicator, ListRenderItem } from 'react-native';
+import { PokedexContext } from '../../context/provider';
 
 import api from '../../services/api';
 
@@ -21,19 +22,21 @@ export interface Pokemon {
 }
 
 const HomeScreen = (props: IHomeScreenProps) => {
-  const [pokemons, setPokemons] = useState<Pokemon[]>([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
+  // const [pokemons, setPokemons] = useState([]);
 
-  const getPokemons = async () => {
-    const response = await api.get(`https://pokeapi.co/api/v2/pokemon?offset=${20 * page}`);
-    setPokemons(pokemons.concat(response.data.results));
-  };
+  const { getPokemons, pokemons } = React.useContext(PokedexContext);
 
   useEffect(() => {
-    setLoading(true);
-    getPokemons();
-    setLoading(false);
+    const update = async () => {
+      setLoading(true);
+      getPokemons();
+      setLoading(false);
+      console.log('pkemons', pokemons);
+    };
+
+    update();
   }, [page]);
 
   const renderPokemon: ListRenderItem<Pokemon> = ({ item }) => (
@@ -44,7 +47,7 @@ const HomeScreen = (props: IHomeScreenProps) => {
     <Container>
       <Title>Pokedex</Title>
       <ListContainer
-        data={pokemons}
+        data={Object.values(pokemons)}
         renderItem={renderPokemon}
         keyExtractor={(item, index) => `${item.name}-${index}`}
         onEndReachedThreshold={0.5}
