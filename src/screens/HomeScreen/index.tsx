@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, ListRenderItem } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import PokemonCard from './components/pokemonCard/PokemonCard';
+import PokemonCard from './PokemonCard';
 
 import api from '../../services/api';
 
