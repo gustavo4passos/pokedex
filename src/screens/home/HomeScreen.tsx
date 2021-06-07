@@ -31,7 +31,7 @@ const HomeScreen = (props: IHomeScreenProps) => {
   }, [page]);
 
   const renderPokemon: ListRenderItem<Pokemon> = ({ item }) => (
-    <PokemonCard name={item.name} url={item.url} />
+    <PokemonCard name={item.name}/>
   );
 
   return (
