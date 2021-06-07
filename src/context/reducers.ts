@@ -1,23 +1,26 @@
 import { actions } from './actions';
 interface IRootState {
-    pokemons: any
+    pokemons: Object[],
+    page: Number,
+    loadingPokemons: boolean
 }
 
 export const initialState: IRootState = {
-  pokemons: { },
-  page: 1
+  pokemons: [],
+  page: 0,
+  loadingPokemons: false
 };
 
-const getPokemons = (state, action) => {
-  return { ...state, pokemons: { ...(state.pokemons), ...action.value } };
-};
-
-export const reducer = (state: IRootState, action): Promise<IRootState> => {
+export const reducer = (state: IRootState, action: any): Promise<IRootState> => {
   switch (action.type) {
+  case actions.GET_POKEMONS_REQUEST: return { ...state, loadingPokemons: true };
   case actions.GET_POKEMONS_SUCCESS: {
-    return getPokemons(state, action);
+    console.log(action.value);
+    return { ...state, pokemons: state.pokemons.concat(Object.values(action.value)), loadingPokemons: false };
   }
+  case actions.SET_PAGE: return { ...state, page: action.value.page };
   default: {
+    console.error('Unknown action:', action);
     return state;
   }
   }

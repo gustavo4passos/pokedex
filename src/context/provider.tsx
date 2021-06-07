@@ -9,7 +9,8 @@ const Provider = ({ children }) => {
 
   const value = {
     ...state,
-    getPokemons: (page: Number) => actions.getPokemons(page, dispatch)
+    getPokemons: (page: Number) => actions.getPokemons(page, dispatch),
+    setPage: (page: Number) => actions.setPage(page, dispatch)
   };
 
   return <PokedexContext.Provider value={value}>

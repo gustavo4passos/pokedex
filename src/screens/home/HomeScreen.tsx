@@ -4,8 +4,6 @@ import PokemonCard from './components/pokemonCard/PokemonCard';
 import { ActivityIndicator, ListRenderItem } from 'react-native';
 import { PokedexContext } from '../../context/provider';
 
-import api from '../../services/api';
-
 import {
   Container,
   Title,
@@ -22,18 +20,11 @@ export interface Pokemon {
 }
 
 const HomeScreen = (props: IHomeScreenProps) => {
-  const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);
-  // const [pokemons, setPokemons] = useState([]);
-
-  const { getPokemons, pokemons } = React.useContext(PokedexContext);
+  const { getPokemons, pokemons, loadingPokemons, setPage, page } = React.useContext(PokedexContext);
 
   useEffect(() => {
     const update = async () => {
-      setLoading(true);
-      getPokemons();
-      setLoading(false);
-      console.log('pkemons', pokemons);
+      await getPokemons(page);
     };
 
     update();
@@ -51,7 +42,7 @@ const HomeScreen = (props: IHomeScreenProps) => {
         renderItem={renderPokemon}
         keyExtractor={(item, index) => `${item.name}-${index}`}
         onEndReachedThreshold={0.5}
-        onEndReached={() => { if (!loading) { setPage(page + 1); } }}
+        onEndReached={() => { if (!loadingPokemons) { setPage(page + 1); } }}
         numColumns={2}
         ListFooterComponent={<ActivityIndicator size="large" color="#00ff00" />}
       />
