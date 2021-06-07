@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator } from 'react-native';
-import { PokedexContext } from '../../../../context/provider';
+import { PokedexContext } from '../../../context/provider';
+import api from '../../../services/api';
 
 import {
   Container,
