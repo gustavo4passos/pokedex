@@ -134,15 +134,3 @@ export const BottomContainer = styled.View`
 
   padding: 32px 24px;
 `;
-
-export const TabBar = styled.View`
-  flex-direction: row;
-`;
-
-export const TabItem = styled.TouchableOpacity<{active: boolean}>`
-  flex: 1;
-  align-items: center;
-  padding: 16px;
-  border-bottom-width: 2px;
-  border-bottom-color: ${({ active }) => active ? '#000' : '#E5E5E5'};
-`;
