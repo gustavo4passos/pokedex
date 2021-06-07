@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator } from 'react-native';
+import { PokedexContext } from '../../../../context/provider';
 
 import api from '../../../../services/api';
 
@@ -32,6 +33,7 @@ interface Pokemon {
 const PokemonCard = (props: IPokemonCardProrps) => {
   const [pokemon, setPokemon] = useState<Pokemon>();
   const [loading, setLoading] = useState(false);
+  const { getPokemonBasicData } = React.useContext(PokedexContext);
 
   const getInfos = async () => {
     const response = await api.get(String(props.url));
@@ -43,6 +45,7 @@ const PokemonCard = (props: IPokemonCardProrps) => {
 
   useEffect(() => {
     setLoading(true);
+    getPokemonBasicData('ditto');
     getInfos();
     setLoading(false);
   }, []);

@@ -20,7 +20,7 @@ export interface Pokemon {
 }
 
 const HomeScreen = (props: IHomeScreenProps) => {
-  const { getPokemons, pokemons, loadingPokemons, setPage, page } = React.useContext(PokedexContext);
+  const { getPokemons, pokemonList, loadingPokemonList, setPage, page } = React.useContext(PokedexContext);
 
   useEffect(() => {
     const update = async () => {
@@ -38,11 +38,11 @@ const HomeScreen = (props: IHomeScreenProps) => {
     <Container>
       <Title>Pokedex</Title>
       <ListContainer
-        data={Object.values(pokemons)}
+        data={Object.values(pokemonList)}
         renderItem={renderPokemon}
         keyExtractor={(item, index) => `${item.name}-${index}`}
         onEndReachedThreshold={0.5}
-        onEndReached={() => { if (!loadingPokemons) { setPage(page + 1); } }}
+        onEndReached={() => { if (!loadingPokemonList) { setPage(page + 1); } }}
         numColumns={2}
         ListFooterComponent={<ActivityIndicator size="large" color="#00ff00" />}
       />
