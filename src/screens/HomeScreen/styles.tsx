@@ -1,7 +1,7 @@
 import { FlatList } from 'react-native';
 import styled from 'styled-components/native';
 
-import { Pokemon } from './HomeScreen';
+import { Pokemon } from '.';
 
 export const Container = styled.View`
   flex: 1;

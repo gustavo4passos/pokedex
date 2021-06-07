@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import PokemonCard from './components/pokemonCard/PokemonCard';
+import PokemonCard from './PokemonCard';
 
 import { ActivityIndicator, ListRenderItem } from 'react-native';
 
