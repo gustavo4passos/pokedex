@@ -16,7 +16,7 @@ export const Container = styled.View<ContainerProps>`
   background-color: ${
   props => {
     switch (props.pokemonType) {
-    case 'eletric':
+    case 'electric':
       return '#FFDD36';
     case 'dragon':
       return '#37A6FF';
@@ -53,7 +53,7 @@ export const Container = styled.View<ContainerProps>`
     case 'ground':
       return '#E87236';
     default:
-      return 'yellow';
+      return 'grey';
     }
   }
 }
@@ -96,7 +96,7 @@ export const TypeTag = styled.View<ContainerProps>`
   background-color: ${
   props => {
     switch (props.pokemonType) {
-    case 'eletric':
+    case 'electric':
       return '#E0BB00';
     case 'dragon':
       return '#007CE0';
@@ -133,7 +133,7 @@ export const TypeTag = styled.View<ContainerProps>`
     case 'ground':
       return '#B2592B';
     default:
-      return 'yellow';
+      return 'grey';
     }
   }
 }
