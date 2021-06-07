@@ -30,11 +30,12 @@ interface Pokemon {
 const PokemonCard = (props: IPokemonCardProrps) => {
   const [pokemon, setPokemon] = useState<Pokemon>();
   const [loading, setLoading] = useState(false);
-  const { getPokemonBasicData, pokemons, loadingPokemons } = React.useContext(PokedexContext);
+  const { getPokemonBasicData, getPokemonSpeciesData, pokemons, loadingPokemons } = React.useContext(PokedexContext);
 
   useEffect(() => {
     if (pokemons[props.name] === undefined) {
       getPokemonBasicData(props.name);
+      getPokemonSpeciesData(props.name);
     } else {
       setPokemon(pokemons[props.name]);
     }

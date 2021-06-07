@@ -11,7 +11,8 @@ const Provider = ({ children }) => {
     ...state,
     getPokemons: (page: number) => actions.getPokemons(page, dispatch),
     setPage: (page: number) => actions.setPage(page, dispatch),
-    getPokemonBasicData: (name: string) => actions.getPokemonBasicData(name, dispatch)
+    getPokemonBasicData: (name: string) => actions.getPokemonBasicData(name, dispatch),
+    getPokemonSpeciesData: (name: string) => actions.getPokemonSpeciesData(name, dispatch)
   };
 
   return <PokedexContext.Provider value={value}>
