@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import PokemonCard from './components/pokemonCard/PokemonCard';
-
 import { ScrollView } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
+import PokemonCard from './components/pokemonCard/PokemonCard';
 
 import api from '../../services/api';
 
@@ -34,17 +35,19 @@ const HomeScreen = (props: IHomeScreenProps) => {
   }, []);
 
   return (
-    <ScrollView>
-      <Container>
-        <Title>Pokedex</Title>
-        <ListContainer>
-          {pokemons.map(pokemon =>
-            <PokemonCard key={String(pokemon.name)} name={pokemon.name} url={pokemon.url}/>
+    <SafeAreaView>
+      <ScrollView>
+        <Container>
+          <Title>Pokedex</Title>
+          <ListContainer>
+            {pokemons.map(pokemon =>
+              <PokemonCard key={String(pokemon.name)} name={pokemon.name} url={pokemon.url} />
 
-          )}
-        </ListContainer>
-      </Container>
-    </ScrollView>
+            )}
+          </ListContainer>
+        </Container>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
