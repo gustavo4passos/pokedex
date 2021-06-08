@@ -7,18 +7,33 @@ export const ContainerTab = styled.View`
 `;
 
 export const DivTab = styled.View`
+  display: flex;
+  width: 100%;
   flex-direction: row;
+  align-content: space-around;
+  justify-content: space-around;
   margin-top: 19px;
 `;
 
 export const TextBoldTab = styled.Text`
   font-family: "ChakraPetch_700Bold";
+  display: flex;
+  flex: 1;
+  text-align: center;
   text-transform: uppercase;
-  margin-right: 64px;
 `;
 
 export const TextRegularTab = styled.Text`
   font-family: "ChakraPetch_400Regular";
+  display: flex;
+  flex: 1;
+  text-align: center;
+  text-transform: uppercase;
+`;
+
+export const HabilitiesTab = styled.Text`
+font-family: "ChakraPetch_400Regular";
+  text-align: center;
   text-transform: uppercase;
 `;
 

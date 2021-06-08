@@ -7,7 +7,8 @@ import {
   TextBoldTab,
   TextRegularTab,
   HabilitiesText,
-  HabilitiesDiv
+  HabilitiesDiv,
+  HabilitiesTab
 } from './styles';
 
 // import { Container } from "./styles"
@@ -15,22 +16,22 @@ import {
 const AboutTab = (props: any) => (
   <ContainerTab style={{ flex: 1 }}>
     <DivTab>
-      <TextBoldTab>Espécie </TextBoldTab>
-      <TextRegularTab>vovodiaoidasodid</TextRegularTab>
+      <TextBoldTab>Espécie</TextBoldTab>
+      <TextRegularTab>{props.pokemonSpecies?.genera[7].genus}</TextRegularTab>
     </DivTab>
     <DivTab>
-      <TextBoldTab>Peso {'   '} </TextBoldTab>
-      <TextRegularTab>{props.pokemon?.weight} gramas</TextRegularTab>
+      <TextBoldTab>Peso</TextBoldTab>
+      <TextRegularTab>{props.pokemon?.weight / 10} kilogramas</TextRegularTab>
     </DivTab>
     <DivTab>
-      <TextBoldTab>Altura </TextBoldTab>
-      <TextRegularTab>{props.pokemon?.height} centímetros</TextRegularTab>
+      <TextBoldTab>Altura</TextBoldTab>
+      <TextRegularTab>{props.pokemon?.height / 10} metros</TextRegularTab>
     </DivTab>
     <HabilitiesDiv>
-      <HabilitiesText>Habilidades{'\n'}</HabilitiesText>
+      <HabilitiesText>Habilidades</HabilitiesText>
       {props.pokemon?.abilities.map((item: any) => (
         // eslint-disable-next-line react/jsx-key
-        <TextRegularTab key={item.ability.name}> {item.ability.name} </TextRegularTab>
+        <HabilitiesTab key={item.ability.name}> {item.ability.name} </HabilitiesTab>
       ))}
     </HabilitiesDiv>
   </ContainerTab>
