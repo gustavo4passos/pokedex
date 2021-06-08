@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import PokemonCard from './PokemonCard';
-
+import React, { useEffect } from 'react';
 import { ActivityIndicator, ListRenderItem } from 'react-native';
 import { PokedexContext } from '../../context/provider';
+import PokemonCard from './PokemonCard';
 
 import {
   Container,
