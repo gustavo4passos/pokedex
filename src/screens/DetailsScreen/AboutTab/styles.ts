@@ -1,9 +1,9 @@
-import styled from "styled-components/native";
+import styled from 'styled-components/native';
 
 export const ContainerTab = styled.View`
-  align-items: flex-start;
-  margin-left: 60px;
+  align-items: center;
   flex: 1;
+  align-content: space-between;
 `;
 
 export const DivTab = styled.View`
@@ -28,7 +28,6 @@ export const HabilitiesText = styled.Text`
 `;
 
 export const HabilitiesDiv = styled.View`
-  margin-top: 20px;
-  margin-left: 64px;
+  margin-top: 30px;
   align-items: center;
 `;
