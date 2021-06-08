@@ -32,7 +32,7 @@ import {
 } from './styles';
 
 const DetailsScreen = ({ navigation, route }) => {
-  const { pokemons, pokemonSpecies, getPokemonSpeciesData, getPokemonBasicData } = React.useContext(PokedexContext);
+  const { pokemonsByName, pokemonsSpeciesByName, getPokemonSpeciesData, getPokemonBasicData } = React.useContext(PokedexContext);
 
   const renderScene = SceneMap({
     about: () => <AboutTab pokemon={currentPokemon} pokemonSpecies={currentPokemonSpecies}/>,
@@ -56,32 +56,32 @@ const DetailsScreen = ({ navigation, route }) => {
 
   useEffect(() => {
     const { pokemonName } = route.params;
-    if (pokemons[pokemonName] === undefined) {
+    if (pokemonsByName[pokemonName] === undefined) {
       getPokemonBasicData(pokemonName);
     } else {
-      setCurrentPokemon(pokemons[pokemonName]);
+      setCurrentPokemon(pokemonsByName[pokemonName]);
     }
-    if (pokemonSpecies[pokemonName] === undefined) {
+    if (pokemonsSpeciesByName[pokemonName] === undefined) {
       getPokemonSpeciesData(pokemonName);
     } else {
-      setCurrentPokemonSpecies(pokemonSpecies[pokemonName]);
+      setCurrentPokemonSpecies(pokemonsSpeciesByName[pokemonName]);
     }
     getEvolution();
   }, []);
 
   useEffect(() => {
     const { pokemonName } = route.params;
-    if (pokemons[pokemonName]) {
-      setCurrentPokemon(pokemons[pokemonName]);
+    if (pokemonsByName[pokemonName]) {
+      setCurrentPokemon(pokemonsByName[pokemonName]);
     }
-  }, [pokemons]);
+  }, [pokemonsByName]);
 
   useEffect(() => {
     const { pokemonName } = route.params;
-    if (pokemonSpecies[pokemonName]) {
-      setCurrentPokemonSpecies(pokemonSpecies[pokemonName]);
+    if (pokemonsSpeciesByName[pokemonName]) {
+      setCurrentPokemonSpecies(pokemonsSpeciesByName[pokemonName]);
     }
-  }, [pokemonSpecies]);
+  }, [pokemonsSpeciesByName]);
 
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
