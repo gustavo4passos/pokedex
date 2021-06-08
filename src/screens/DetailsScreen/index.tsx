@@ -35,9 +35,9 @@ const DetailsScreen = ({ navigation, route }) => {
   const { pokemons, pokemonSpecies, getPokemonSpeciesData, getPokemonBasicData } = React.useContext(PokedexContext);
 
   const renderScene = SceneMap({
-    about: () => <AboutTab pokemon={currentPokemon} />,
-    status: () => <StatusTab pokemon={currentPokemon} />,
-    evolutions: () => <EvolutionsTab pokemon={evolution} />
+    about: () => <AboutTab pokemon={currentPokemon} pokemonSpecies={currentPokemonSpecies}/>,
+    status: () => <StatusTab pokemon={currentPokemon} />
+    // evolutions: () => <EvolutionsTab pokemon={evolution} />
   });
 
   const layout = useWindowDimensions();
@@ -45,6 +45,7 @@ const DetailsScreen = ({ navigation, route }) => {
   const rotateAnim = useRef(new Animated.Value(0)).current;
 
   const [currentPokemon, setCurrentPokemon] = useState<any>();
+  const [currentPokemonSpecies, setCurrentPokemonSpecies] = useState<any>();
   const [evolution, setEvolution] = useState<any>();
 
   const getEvolution = async () => {
@@ -62,6 +63,8 @@ const DetailsScreen = ({ navigation, route }) => {
     }
     if (pokemonSpecies[pokemonName] === undefined) {
       getPokemonSpeciesData(pokemonName);
+    } else {
+      setCurrentPokemonSpecies(pokemonSpecies[pokemonName]);
     }
     getEvolution();
   }, []);
@@ -73,11 +76,18 @@ const DetailsScreen = ({ navigation, route }) => {
     }
   }, [pokemons]);
 
+  useEffect(() => {
+    const { pokemonName } = route.params;
+    if (pokemonSpecies[pokemonName]) {
+      setCurrentPokemonSpecies(pokemonSpecies[pokemonName]);
+    }
+  }, [pokemonSpecies]);
+
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
     { key: 'about', title: 'Sobre' },
-    { key: 'status', title: 'Status' },
-    { key: 'evolutions', title: 'Evolucoes' }
+    { key: 'status', title: 'Status' }
+    // { key: 'evolutions', title: 'Evolucoes' }
   ]);
 
   useEffect(() => {

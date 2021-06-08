@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import { ProgressBar, Colors } from 'react-native-paper';
 
-import { DivTab, TextBoldTab, TextRegularTab, ContainerStatus, StatusValueTab, StatusTotalTab } from './styles';
+import { DivTab, TextBoldTab, TextRegularTab, ContainerStatus, StatusValueTab, StatusTotalTab, TextTotalTab } from './styles';
 
 const StatusTab = (props: any) => (
   <ContainerStatus>
@@ -63,7 +63,7 @@ const StatusTab = (props: any) => (
       </StatusValueTab>
     </DivTab>
     <DivTab>
-      <TextBoldTab>Rapidez</TextBoldTab>
+      <TextBoldTab>Agilidade</TextBoldTab>
       <StatusValueTab>
         <TextRegularTab>{props.pokemon?.stats[5].base_stat}</TextRegularTab>
         <ProgressBar
@@ -74,12 +74,16 @@ const StatusTab = (props: any) => (
       </StatusValueTab>
     </DivTab>
     <DivTab>
-      <StatusTotalTab>Total</StatusTotalTab>
       <StatusTotalTab>
-        {props.pokemon?.stats.reduce(
-          (total: number, item: any) => total + item.base_stat,
-          0
-        )}
+        <TextTotalTab>
+          Total
+        </TextTotalTab>
+        <TextTotalTab>
+          {props.pokemon?.stats.reduce(
+            (total: number, item: any) => total + item.base_stat,
+            0
+          )}
+        </TextTotalTab>
       </StatusTotalTab>
     </DivTab>
   </ContainerStatus>

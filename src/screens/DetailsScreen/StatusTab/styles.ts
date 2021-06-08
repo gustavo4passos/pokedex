@@ -6,7 +6,15 @@ export const ContainerTab = styled.View`
 `;
 
 export const StatusTotalTab = styled.View`
-  background-color: #ff0000;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+`;
+
+export const TextTotalTab = styled.Text`
+font-family: "ChakraPetch_700Bold";
+  text-transform: uppercase;
 `;
 
 export const DivTab = styled.View`
@@ -19,6 +27,7 @@ export const DivTab = styled.View`
 `;
 
 export const StatusValueTab = styled.View`
+  justify-content: space-around;
   flex-direction: row;
   align-items: center;
   flex: 1;
@@ -29,6 +38,7 @@ export const TextBoldTab = styled.Text`
   flex: 1;
   text-align: center;
   text-transform: uppercase;
+
   margin-right: 64px;
 `;
 

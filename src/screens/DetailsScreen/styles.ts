@@ -12,44 +12,44 @@ export const Container = styled.SafeAreaView`
 
   background-color: ${(props) => {
     switch (props.pokemonType) {
-    case 'eletric':
-      return '#E0BB00';
+    case 'electric':
+      return '#FFDD36';
     case 'dragon':
-      return '#007CE0';
+      return '#37A6FF';
     case 'fire':
-      return '#E16600';
+      return '#FF9238';
     case 'grass':
-      return '#00E020';
+      return '#37FF53';
     case 'rock':
-      return '#A6966C';
+      return '#C8B686';
     case 'ice':
-      return '#00BEA6';
+      return '#4CD1C0';
     case 'normal':
-      return '#727B83';
+      return '#919AA2';
     case 'poison':
-      return '#9355A7';
+      return '#B567Ce';
     case 'water':
-      return '#2C78B5';
+      return '#3692DC';
     case 'bug':
-      return '#5E8A04';
+      return '#83C300';
     case 'steel':
-      return '#446B7A';
+      return '#5A8EA2';
     case 'fighting':
-      return '#AC2753';
+      return '#E0306A';
     case 'ghost':
-      return '#395088';
+      return '#4C6AB2';
     case 'flying':
-      return '#6B86B4';
+      return '#89AAE3';
     case 'dark':
-      return '#494452';
+      return '#5B5466';
     case 'fairy':
-      return '#CD72C0';
+      return '#FB89EB';
     case 'psychic':
-      return '#D35763';
+      return '#FF6675';
     case 'ground':
-      return '#B2592B';
+      return '#E87236';
     default:
-      return 'yellow';
+      return 'grey';
     }
   }};
 `;
