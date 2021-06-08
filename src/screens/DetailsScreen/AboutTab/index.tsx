@@ -17,7 +17,7 @@ const AboutTab = (props: any) => (
   <ContainerTab style={{ flex: 1 }}>
     <DivTab>
       <TextBoldTab>Espécie</TextBoldTab>
-      <TextRegularTab>{props.pokemonSpecies?.genera[7].genus}</TextRegularTab>
+      <TextRegularTab>{(props.pokemonSpecies?.genera[7].genus !== undefined) ? props.pokemonSpecies?.genera[7].genus : 'desconhecido'}</TextRegularTab>
     </DivTab>
     <DivTab>
       <TextBoldTab>Peso</TextBoldTab>
