@@ -33,6 +33,7 @@ const HomeScreen = (props: IHomeScreenProps) => {
 
   const searchPokemon = (pokemonName: string) => {
     console.log(`Buscou por ${pokemonName}`);
+    props.navigation.navigate('Details');
   };
 
   useEffect(() => {
