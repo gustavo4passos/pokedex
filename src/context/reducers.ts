@@ -35,11 +35,18 @@ export const reducer = (state: IRootState, action: any): IRootState => {
   case actions.GET_POKEMONS: {
     const { pokemonList, allPokemonsList, page, filter } = state;
 
-    const updatedPokemonList = pokemonList.concat(
-      allPokemonsList.filter((pokemon) =>
-        pokemon.name.startsWith(filter)
-      ).slice(page * 20, (page + 1) * 20)
-    );
+    const filteredPokemonList = allPokemonsList.filter((pokemon) =>
+      pokemon.name.startsWith(filter.toLowerCase())
+    ).slice(page * 20, (page + 1) * 20);
+
+    let updatedPokemonList = pokemonList;
+
+    if (page === 0) updatedPokemonList = filteredPokemonList;
+    else { updatedPokemonList = updatedPokemonList.concat(filteredPokemonList); }
+
+    // const updatedPokemonList = [...pokemonList, ...allPokemonsList.filter((pokemon) =>
+    //   pokemon.name.startsWith(filter)
+    // ).slice(page * 20, (page + 1) * 20)];
 
     return {
       ...state,
@@ -52,12 +59,12 @@ export const reducer = (state: IRootState, action: any): IRootState => {
     const filteredPokemons = allPokemonsList.filter((pokemon) =>
       pokemon.name.includes(action.value)
     );
-    console.log(action);
-    console.log(filteredPokemons);
+
     return { ...state, pokemonList: filteredPokemons };
   }
-  case actions.SET_FILTER:
-    return { ...state, filter: action.value };
+  case actions.SET_FILTER: {
+    return { ...state, filter: action.value, page: 0 };
+  }
   case actions.SET_PAGE:
     return { ...state, page: action.value.page };
   case actions.GET_ALL_POKEMONS_REQUEST:

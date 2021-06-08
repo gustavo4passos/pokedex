@@ -17,20 +17,14 @@ interface IHomeScreenProps {
 
 const HomeScreen = (props: IHomeScreenProps) => {
   const { getPokemons, pokemonList, loadingPokemonList, getAllPokemons, setPage, page, filter, allPokemonsList, setFilter } = React.useContext(PokedexContext);
-  // const [triggerRender, setTriggerRender] = useState(false);
 
   const searchPokemon = (pokemonName: string) => {
-    console.log(`Buscou por ${pokemonName}`);
     setFilter(pokemonName);
   };
 
   useEffect(() => {
-    console.log(page);
     const update = () => {
-      console.log(page + 'desgraça');
       getPokemons();
-      console.log('GETOU');
-      // setTriggerRender(!triggerRender);
     };
 
     if (allPokemonsList.length) {
@@ -60,7 +54,7 @@ const HomeScreen = (props: IHomeScreenProps) => {
         onEndReachedThreshold={0.5}
         onEndReached={() => { if (!loadingPokemonList) { setPage(page + 1); } }}
         numColumns={2}
-        ListFooterComponent={<ActivityIndicator size="large" color="#00ff00" />}
+        // ListFooterComponent={<ActivityIndicator size="large" color="#00ff00" />}
       />
     </Container>
   );

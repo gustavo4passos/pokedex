@@ -59,7 +59,6 @@ const DetailsScreen = ({ navigation, route }) => {
       getPokemonBasicData(pokemonName);
     } else {
       setCurrentPokemon(pokemonsByName[pokemonName]);
-      console.log(pokemonsByName[pokemonName]);
     }
     if (pokemonsSpeciesByName[pokemonName] === undefined) {
       getPokemonSpeciesData(pokemonName);
