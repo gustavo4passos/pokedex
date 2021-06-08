@@ -35,9 +35,9 @@ const DetailsScreen = ({ navigation, route }) => {
   const { pokemonsByName, pokemonsSpeciesByName, getPokemonSpeciesData, getPokemonBasicData } = React.useContext(PokedexContext);
 
   const renderScene = SceneMap({
-    about: () => <AboutTab pokemon={currentPokemon} />,
-    status: () => <StatusTab pokemon={currentPokemon} />,
-    evolutions: () => <EvolutionsTab pokemon={evolution} />
+    about: () => <AboutTab pokemon={currentPokemon} pokemonSpecies={currentPokemonSpecies}/>,
+    status: () => <StatusTab pokemon={currentPokemon} />
+    // evolutions: () => <EvolutionsTab pokemon={evolution} />
   });
 
   const layout = useWindowDimensions();
@@ -45,6 +45,7 @@ const DetailsScreen = ({ navigation, route }) => {
   const rotateAnim = useRef(new Animated.Value(0)).current;
 
   const [currentPokemon, setCurrentPokemon] = useState<any>();
+  const [currentPokemonSpecies, setCurrentPokemonSpecies] = useState<any>();
   const [evolution, setEvolution] = useState<any>();
 
   const getEvolution = async () => {
@@ -62,6 +63,8 @@ const DetailsScreen = ({ navigation, route }) => {
     }
     if (pokemonsSpeciesByName[pokemonName] === undefined) {
       getPokemonSpeciesData(pokemonName);
+    } else {
+      setCurrentPokemonSpecies(pokemonSpeciesByName[pokemonName]);
     }
     getEvolution();
   }, []);
@@ -73,11 +76,18 @@ const DetailsScreen = ({ navigation, route }) => {
     }
   }, [pokemonsByName]);
 
+  useEffect(() => {
+    const { pokemonName } = route.params;
+    if (pokemonSpeciesByName[pokemonName]) {
+      setCurrentPokemonSpecies(pokemonSpeciesByName[pokemonName]);
+    }
+  }, [pokemonSpeciesByName]);
+
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
     { key: 'about', title: 'Sobre' },
-    { key: 'status', title: 'Status' },
-    { key: 'evolutions', title: 'Evolucoes' }
+    { key: 'status', title: 'Status' }
+    // { key: 'evolutions', title: 'Evolucoes' }
   ]);
 
   useEffect(() => {
@@ -93,7 +103,7 @@ const DetailsScreen = ({ navigation, route }) => {
 
   return (
     <ScrollView>
-      <Container style={{ backgroundColor: '#FFDD36' }}>
+      <Container pokemonType={currentPokemon?.types[0].type.name}>
         <TopContainer>
           <Header>
             <BackContainer onPress={navigation.goBack}>
@@ -105,7 +115,7 @@ const DetailsScreen = ({ navigation, route }) => {
           <Subheader>
             {currentPokemon?.types.map((item: any) => (
               // eslint-disable-next-line react/jsx-key
-              <TypeTag pokemonType={item.type.name}>
+              <TypeTag key={item.type.name} pokemonType={item.type.name}>
                 <TypeText>{item.type.name}</TypeText>
               </TypeTag>
             ))}
