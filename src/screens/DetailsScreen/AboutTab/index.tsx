@@ -15,15 +15,15 @@ import {
 const AboutTab = (props: any) => (
   <ContainerTab style={{ flex: 1 }}>
     <DivTab>
-      <TextBoldTab>Espécie </TextBoldTab>
+      <TextBoldTab>Espécie</TextBoldTab>
       <TextRegularTab>vovodiaoidasodid</TextRegularTab>
     </DivTab>
     <DivTab>
-      <TextBoldTab>Peso {'   '} </TextBoldTab>
+      <TextBoldTab>Peso</TextBoldTab>
       <TextRegularTab>{props.pokemon?.weight} gramas</TextRegularTab>
     </DivTab>
     <DivTab>
-      <TextBoldTab>Altura </TextBoldTab>
+      <TextBoldTab>Altura</TextBoldTab>
       <TextRegularTab>{props.pokemon?.height} centímetros</TextRegularTab>
     </DivTab>
     <HabilitiesDiv>

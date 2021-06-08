@@ -59,7 +59,6 @@ const DetailsScreen = ({ navigation, route }) => {
       getPokemonBasicData(pokemonName);
     } else {
       setCurrentPokemon(pokemons[pokemonName]);
-      console.log(pokemons[pokemonName]);
     }
     if (pokemonSpecies[pokemonName] === undefined) {
       getPokemonSpeciesData(pokemonName);
@@ -94,7 +93,7 @@ const DetailsScreen = ({ navigation, route }) => {
 
   return (
     <ScrollView>
-      <Container style={{ backgroundColor: '#FFDD36' }}>
+      <Container pokemonType={currentPokemon?.types[0].type.name}>
         <TopContainer>
           <Header>
             <BackContainer onPress={navigation.goBack}>
