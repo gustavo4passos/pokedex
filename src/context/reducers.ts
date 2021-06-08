@@ -2,6 +2,7 @@ import { actions } from './actions';
 interface IRootState {
     pokemonList: object[],
     pokemons: object,
+    pokemonSpecies: object,
     page: number,
     loadingPokemonList: boolean,
     loadingPokemonSpecies: string[],
@@ -12,6 +13,7 @@ export const initialState: IRootState = {
   pokemonList: [],
   page: 0,
   pokemons: {},
+  pokemonSpecies: { },
   loadingPokemonList: false,
   loadingPokemonSpecies: [],
   loadingPokemons: []

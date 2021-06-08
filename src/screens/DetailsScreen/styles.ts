@@ -3,11 +3,12 @@ import styled from 'styled-components/native';
 import ArrowLeftIcon from '../../assets/images/arrow-left.svg';
 
 interface TypeTagProps {
-  readonly pokemonType: String
+  readonly pokemonType: String;
 }
 
-export const Container = styled.View`
+export const Container = styled.SafeAreaView`
   height: 100%;
+  padding-top: 15px;
 `;
 
 export const TopContainer = styled.View`
@@ -31,7 +32,7 @@ export const Title = styled.Text`
   color: white;
 `;
 
-export const BackContainer = styled.View`
+export const BackContainer = styled.TouchableOpacity`
   position: absolute;
   left: 0;
 `;
@@ -57,7 +58,7 @@ export const TypeTag = styled.View<TypeTagProps>`
   color: white;
   margin: 4px;
 
-  background-color: ${props => {
+  background-color: ${(props) => {
     switch (props.pokemonType) {
     case 'eletric':
       return '#E0BB00';
