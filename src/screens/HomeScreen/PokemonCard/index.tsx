@@ -4,7 +4,7 @@ import { PokedexContext } from '../../../context/provider';
 import api from '../../../services/api';
 
 import {
-  Container,
+  TouchableContainer,
   Thumb,
   InfosContainer,
   Title,
@@ -14,8 +14,8 @@ import {
 } from './styles';
 
 interface IPokemonCardProrps {
-  name: String,
-  url: String
+  name: string,
+  goToDetailsScreen: (name: string) => void
 }
 
 interface Pokemon {
@@ -45,7 +45,7 @@ const PokemonCard = (props: IPokemonCardProrps) => {
   }, [pokemons[props.name]]);
 
   return (
-    <Container pokemonType={pokemon?.types[0].type.name || 'eletric'}>
+    <TouchableContainer pokemonType={pokemon?.types[0].type.name || 'eletric'} onPress={() => props.goToDetailsScreen(props.name)}>
       <Title>{props.name}</Title>
       {
         (loading || pokemons[props.name] === undefined)
@@ -68,7 +68,7 @@ const PokemonCard = (props: IPokemonCardProrps) => {
 
           </InfosContainer>
       }
-    </Container>
+    </TouchableContainer>
   );
 };
 

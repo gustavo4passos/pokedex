@@ -29,8 +29,10 @@ const HomeScreen = (props: IHomeScreenProps) => {
     update();
   }, [page]);
 
+  const goToDetailsScreen = (pokemonName: string) => props.navigation.push('Details', { pokemonName });
+
   const renderPokemon: ListRenderItem<Pokemon> = ({ item }) => (
-    <PokemonCard name={item.name}/>
+    <PokemonCard name={item.name} goToDetailsScreen={goToDetailsScreen} />
   );
 
   return (

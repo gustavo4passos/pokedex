@@ -1,20 +1,21 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from 'react';
 import {
   Animated,
   Easing,
   ScrollView,
-  useWindowDimensions,
-} from "react-native";
-import { TabView, SceneMap } from "react-native-tab-view";
+  useWindowDimensions
+} from 'react-native';
+import { TabView, SceneMap } from 'react-native-tab-view';
 
-import PokeballBackground from "../../assets/images/pokeball-background.png";
-import TabBar from "../../components/TabBar";
+import PokeballBackground from '../../assets/images/pokeball-background.png';
+import TabBar from '../../components/TabBar';
+import { PokedexContext } from '../../context/provider';
 
-import AboutTab from "./AboutTab";
-import EvolutionsTab from "./EvolutionsTab";
-import StatusTab from "./StatusTab";
+import AboutTab from './AboutTab';
+import EvolutionsTab from './EvolutionsTab';
+import StatusTab from './StatusTab';
 
-import api from "../../services/api";
+import api from '../../services/api';
 import {
   Container,
   TopContainer,
@@ -27,14 +28,16 @@ import {
   TypeText,
   PokemonImageContainer,
   PokemonImage,
-  BottomContainer,
-} from "./styles";
+  BottomContainer
+} from './styles';
 
-const DetailsScreen = () => {
+const DetailsScreen = ({ navigation, route }) => {
+  const { pokemons, pokemonSpecies, getPokemonSpeciesData, getPokemonBasicData } = React.useContext(PokedexContext);
+
   const renderScene = SceneMap({
     about: () => <AboutTab pokemon={currentPokemon} />,
     status: () => <StatusTab pokemon={currentPokemon} />,
-    evolutions: () => <EvolutionsTab pokemon={evolution} />,
+    evolutions: () => <EvolutionsTab pokemon={evolution} />
   });
 
   const layout = useWindowDimensions();
@@ -44,27 +47,38 @@ const DetailsScreen = () => {
   const [currentPokemon, setCurrentPokemon] = useState<any>();
   const [evolution, setEvolution] = useState<any>();
 
-  const getInfos = async () => {
-    const response = await api.get("/pokemon/25/"); // id estático
-    setCurrentPokemon(response.data);
-  };
-
   const getEvolution = async () => {
-    const response = await api.get("/pokemon-species/150/"); // id estático
+    const response = await api.get('/pokemon-species/150/'); // id estático
     const evolution = await api.get(response.data.evolution_chain.url);
     setEvolution(evolution.data);
   };
 
   useEffect(() => {
-    getInfos();
+    const { pokemonName } = route.params;
+    if (pokemons[pokemonName] === undefined) {
+      getPokemonBasicData(pokemonName);
+    } else {
+      setCurrentPokemon(pokemons[pokemonName]);
+      console.log(pokemons[pokemonName]);
+    }
+    if (pokemonSpecies[pokemonName] === undefined) {
+      getPokemonSpeciesData(pokemonName);
+    }
     getEvolution();
   }, []);
 
+  useEffect(() => {
+    const { pokemonName } = route.params;
+    if (pokemons[pokemonName]) {
+      setCurrentPokemon(pokemons[pokemonName]);
+    }
+  }, [pokemons]);
+
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    { key: "about", title: "Sobre" },
-    { key: "status", title: "Status" },
-    { key: "evolutions", title: "Evolucoes" },
+    { key: 'about', title: 'Sobre' },
+    { key: 'status', title: 'Status' },
+    { key: 'evolutions', title: 'Evolucoes' }
   ]);
 
   useEffect(() => {
@@ -73,17 +87,17 @@ const DetailsScreen = () => {
         toValue: 360,
         easing: Easing.linear,
         duration: 10000,
-        useNativeDriver: true,
+        useNativeDriver: true
       })
     ).start();
   }, []);
 
   return (
     <ScrollView>
-      <Container style={{ backgroundColor: "#FFDD36" }}>
+      <Container style={{ backgroundColor: '#FFDD36' }}>
         <TopContainer>
           <Header>
-            <BackContainer>
+            <BackContainer onPress={navigation.goBack}>
               <BackIcon></BackIcon>
             </BackContainer>
             <Title>{currentPokemon?.name}</Title>
@@ -106,10 +120,10 @@ const DetailsScreen = () => {
                   {
                     rotate: rotateAnim.interpolate({
                       inputRange: [0, 360],
-                      outputRange: ["0deg", "360deg"],
-                    }),
-                  },
-                ],
+                      outputRange: ['0deg', '360deg']
+                    })
+                  }
+                ]
               }}
             ></Animated.Image>
           </PokemonImageContainer>
@@ -117,9 +131,9 @@ const DetailsScreen = () => {
 
         <BottomContainer style={{ minHeight: layout.height / 2 }}>
           <PokemonImage
-            style={{ resizeMode: "contain" }}
+            style={{ resizeMode: 'contain' }}
             source={{
-              uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${currentPokemon?.id}.png`,
+              uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${currentPokemon?.id}.png`
             }}
           ></PokemonImage>
 

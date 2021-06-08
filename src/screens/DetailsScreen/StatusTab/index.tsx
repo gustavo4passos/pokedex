@@ -1,8 +1,8 @@
-import React from "react";
-import { View, Text } from "react-native";
-import { ProgressBar, Colors } from "react-native-paper";
+import React from 'react';
+import { View, Text } from 'react-native';
+import { ProgressBar, Colors } from 'react-native-paper';
 
-import { DivTab, TextBoldTab, TextRegularTab, ContainerStatus } from "./styles";
+import { DivTab, TextBoldTab, TextRegularTab, ContainerStatus } from './styles';
 
 const StatusTab = (props: any) => (
   <ContainerStatus>
