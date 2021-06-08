@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, ListRenderItem } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 import PokemonCard from './PokemonCard';
 
@@ -42,20 +41,18 @@ const HomeScreen = (props: IHomeScreenProps) => {
   );
 
   return (
-    <SafeAreaView>
-      <Container>
-        <Title>Pokedex</Title>
-        <ListContainer
-          data={pokemons}
-          renderItem={renderPokemon}
-          keyExtractor={(item, index) => `${item.name}-${index}`}
-          onEndReachedThreshold={0.5}
-          onEndReached={() => { if (!loading) { setPage(page + 1); } }}
-          numColumns={2}
-          ListFooterComponent={<ActivityIndicator size="large" color="#00ff00" />}
-        />
-      </Container>
-    </SafeAreaView>
+    <Container>
+      <Title>Pokedex</Title>
+      <ListContainer
+        data={pokemons}
+        renderItem={renderPokemon}
+        keyExtractor={(item, index) => `${item.name}-${index}`}
+        onEndReachedThreshold={0.5}
+        onEndReached={() => { if (!loading) { setPage(page + 1); } }}
+        numColumns={2}
+        ListFooterComponent={<ActivityIndicator size="large" color="#00ff00" />}
+      />
+    </Container>
   );
 };
 
