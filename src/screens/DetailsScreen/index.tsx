@@ -64,7 +64,7 @@ const DetailsScreen = ({ navigation, route }) => {
     if (pokemonsSpeciesByName[pokemonName] === undefined) {
       getPokemonSpeciesData(pokemonName);
     } else {
-      setCurrentPokemonSpecies(pokemonSpeciesByName[pokemonName]);
+      setCurrentPokemonSpecies(pokemonsSpeciesByName[pokemonName]);
     }
     getEvolution();
   }, []);
@@ -78,10 +78,10 @@ const DetailsScreen = ({ navigation, route }) => {
 
   useEffect(() => {
     const { pokemonName } = route.params;
-    if (pokemonSpeciesByName[pokemonName]) {
-      setCurrentPokemonSpecies(pokemonSpeciesByName[pokemonName]);
+    if (pokemonsSpeciesByName[pokemonName]) {
+      setCurrentPokemonSpecies(pokemonsSpeciesByName[pokemonName]);
     }
-  }, [pokemonSpeciesByName]);
+  }, [pokemonsSpeciesByName]);
 
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
