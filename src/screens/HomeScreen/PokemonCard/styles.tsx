@@ -59,6 +59,61 @@ export const Container = styled.View<ContainerProps>`
 }
 `;
 
+export const TouchableContainer = styled.TouchableOpacity<ContainerProps>`
+  flex-basis: 46%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  padding: 8px;
+  margin: 2%;
+
+  background-color: ${
+  props => {
+    switch (props.pokemonType) {
+    case 'electric':
+      return '#FFDD36';
+    case 'dragon':
+      return '#37A6FF';
+    case 'fire':
+      return '#FF9238';
+    case 'grass':
+      return '#37FF53';
+    case 'rock':
+      return '#C8B686';
+    case 'ice':
+      return '#4CD1C0';
+    case 'normal':
+      return '#919AA2';
+    case 'poison':
+      return '#B567Ce';
+    case 'water':
+      return '#3692DC';
+    case 'bug':
+      return '#83C300';
+    case 'steel':
+      return '#5A8EA2';
+    case 'fighting':
+      return '#E0306A';
+    case 'ghost':
+      return '#4C6AB2';
+    case 'flying':
+      return '#89AAE3';
+    case 'dark':
+      return '#5B5466';
+    case 'fairy':
+      return '#FB89EB';
+    case 'psychic':
+      return '#FF6675';
+    case 'ground':
+      return '#E87236';
+    default:
+      return 'grey';
+    }
+  }
+}
+`;
+
 export const Title = styled.Text`
   color: white;
   font-weight: bold;

@@ -88,17 +88,17 @@ export const reducer = (state: IRootState, action: any): IRootState => {
         action.value.name
       ]
     };
-  // case actions.GET_POKEMON_SPECIES_SUCCESS:
-  //   return {
-  //     ...state,
-  //     pokemonSpecies: {
-  //       ...state.pokemonSpecies,
-  //       [action.value.name]: action.value
-  //     },
-  //     loadingPokemonSpecies: state.loadingPokemonSpecies.filter(
-  //       (x) => x !== action.value.name
-  //     )
-  //   };
+  case actions.GET_POKEMON_SPECIES_SUCCESS:
+    return {
+      ...state,
+      pokemonSpecies: {
+        ...state.pokemonSpecies,
+        [action.value.name]: action.value
+      },
+      loadingPokemonSpecies: state.loadingPokemonSpecies.filter(
+        (x) => x !== action.value.name
+      )
+    };
   default: {
     console.error('Unknown action:', action);
     return state;
