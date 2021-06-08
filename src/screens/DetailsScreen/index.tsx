@@ -1,14 +1,20 @@
-import React, { useEffect, useRef } from 'react';
-import { Animated, Easing, ScrollView, useWindowDimensions } from 'react-native';
-import { TabView, SceneMap } from 'react-native-tab-view';
+import React, { useEffect, useRef, useState } from "react";
+import {
+  Animated,
+  Easing,
+  ScrollView,
+  useWindowDimensions,
+} from "react-native";
+import { TabView, SceneMap } from "react-native-tab-view";
 
-import PokeballBackground from '../../assets/images/pokeball-background.png';
-import TabBar from '../../components/TabBar';
+import PokeballBackground from "../../assets/images/pokeball-background.png";
+import TabBar from "../../components/TabBar";
 
-import AboutTab from './AboutTab';
-import EvolutionsTab from './EvolutionsTab';
-import StatusTab from './StatusTab';
+import AboutTab from "./AboutTab";
+import EvolutionsTab from "./EvolutionsTab";
+import StatusTab from "./StatusTab";
 
+import api from "../../services/api";
 import {
   Container,
   TopContainer,
@@ -21,78 +27,112 @@ import {
   TypeText,
   PokemonImageContainer,
   PokemonImage,
-  BottomContainer
-} from './styles';
-
-const renderScene = SceneMap({
-  about: AboutTab,
-  status: StatusTab,
-  evolutions: EvolutionsTab
-});
+  BottomContainer,
+} from "./styles";
 
 const DetailsScreen = () => {
+  const renderScene = SceneMap({
+    about: () => <AboutTab pokemon={currentPokemon} />,
+    status: () => <StatusTab pokemon={currentPokemon} />,
+    evolutions: () => <EvolutionsTab pokemon={evolution} />,
+  });
+
   const layout = useWindowDimensions();
 
   const rotateAnim = useRef(new Animated.Value(0)).current;
 
+  const [currentPokemon, setCurrentPokemon] = useState<any>();
+  const [evolution, setEvolution] = useState<any>();
+
+  const getInfos = async () => {
+    const response = await api.get("/pokemon/25/"); // id estático
+    setCurrentPokemon(response.data);
+  };
+
+  const getEvolution = async () => {
+    const response = await api.get("/pokemon-species/150/"); // id estático
+    const evolution = await api.get(response.data.evolution_chain.url);
+    setEvolution(evolution.data);
+  };
+
+  useEffect(() => {
+    getInfos();
+    getEvolution();
+  }, []);
+
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    { key: 'about', title: 'Sobre' },
-    { key: 'status', title: 'Status' },
-    { key: 'evolutions', title: 'Evolucoes' }
+    { key: "about", title: "Sobre" },
+    { key: "status", title: "Status" },
+    { key: "evolutions", title: "Evolucoes" },
   ]);
 
   useEffect(() => {
-    Animated.loop(Animated.timing(
-      rotateAnim,
-      {
+    Animated.loop(
+      Animated.timing(rotateAnim, {
         toValue: 360,
         easing: Easing.linear,
         duration: 10000,
-        useNativeDriver: true
-      }
-    )).start();
+        useNativeDriver: true,
+      })
+    ).start();
   }, []);
 
   return (
     <ScrollView>
-      <Container style={{ backgroundColor: '#FFDD36' }}>
+      <Container style={{ backgroundColor: "#FFDD36" }}>
         <TopContainer>
           <Header>
             <BackContainer>
               <BackIcon></BackIcon>
             </BackContainer>
-            <Title>Pikachu</Title>
+            <Title>{currentPokemon?.name}</Title>
           </Header>
 
           <Subheader>
-            <TypeTag pokemonType="eletric">
-              <TypeText>Eletric</TypeText>
-            </TypeTag>
-            <TypeTag pokemonType="eletric">
-              <TypeText>Eletric2</TypeText>
-            </TypeTag>
+            {currentPokemon?.types.map((item: any) => (
+              // eslint-disable-next-line react/jsx-key
+              <TypeTag pokemonType={item.type.name}>
+                <TypeText>{item.type.name}</TypeText>
+              </TypeTag>
+            ))}
           </Subheader>
 
           <PokemonImageContainer>
-            <Animated.Image source={PokeballBackground} style={{
-              transform: [{
-                rotate: rotateAnim.interpolate({
-                  inputRange: [0, 360],
-                  outputRange: ['0deg', '360deg']
-                })
-              }]
-            }}></Animated.Image>
+            <Animated.Image
+              source={PokeballBackground}
+              style={{
+                transform: [
+                  {
+                    rotate: rotateAnim.interpolate({
+                      inputRange: [0, 360],
+                      outputRange: ["0deg", "360deg"],
+                    }),
+                  },
+                ],
+              }}
+            ></Animated.Image>
           </PokemonImageContainer>
         </TopContainer>
 
         <BottomContainer style={{ minHeight: layout.height / 2 }}>
-          <PokemonImage style={{ resizeMode: 'contain' }} source={{ uri: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png' }} ></PokemonImage>
+          <PokemonImage
+            style={{ resizeMode: "contain" }}
+            source={{
+              uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${currentPokemon?.id}.png`,
+            }}
+          ></PokemonImage>
 
           <TabView
             navigationState={{ index, routes }}
             renderScene={renderScene}
-            renderTabBar={(props) => <TabBar {...props} currentIndex={index} setCurrentIndex={setIndex}/>}
+            renderTabBar={(props) => (
+              <TabBar
+                {...props}
+                currentIndex={index}
+                setCurrentIndex={setIndex}
+              />
+            )}
             onIndexChange={setIndex}
             initialLayout={{ width: layout.width }}
           />

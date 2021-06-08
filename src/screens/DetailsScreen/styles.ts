@@ -1,9 +1,9 @@
-import styled from 'styled-components/native';
+import styled from "styled-components/native";
 
-import ArrowLeftIcon from '../../assets/images/arrow-left.svg';
+import ArrowLeftIcon from "../../assets/images/arrow-left.svg";
 
 interface TypeTagProps {
-  readonly pokemonType: String
+  readonly pokemonType: String;
 }
 
 export const Container = styled.View`
@@ -57,46 +57,46 @@ export const TypeTag = styled.View<TypeTagProps>`
   color: white;
   margin: 4px;
 
-  background-color: ${props => {
+  background-color: ${(props) => {
     switch (props.pokemonType) {
-    case 'eletric':
-      return '#E0BB00';
-    case 'dragon':
-      return '#007CE0';
-    case 'fire':
-      return '#E16600';
-    case 'grass':
-      return '#00E020';
-    case 'rock':
-      return '#A6966C';
-    case 'ice':
-      return '#00BEA6';
-    case 'normal':
-      return '#727B83';
-    case 'poison':
-      return '#9355A7';
-    case 'water':
-      return '#2C78B5';
-    case 'bug':
-      return '#5E8A04';
-    case 'steel':
-      return '#446B7A';
-    case 'fighting':
-      return '#AC2753';
-    case 'ghost':
-      return '#395088';
-    case 'flying':
-      return '#6B86B4';
-    case 'dark':
-      return '#494452';
-    case 'fairy':
-      return '#CD72C0';
-    case 'psychic':
-      return '#D35763';
-    case 'ground':
-      return '#B2592B';
-    default:
-      return 'yellow';
+      case "eletric":
+        return "#E0BB00";
+      case "dragon":
+        return "#007CE0";
+      case "fire":
+        return "#E16600";
+      case "grass":
+        return "#00E020";
+      case "rock":
+        return "#A6966C";
+      case "ice":
+        return "#00BEA6";
+      case "normal":
+        return "#727B83";
+      case "poison":
+        return "#9355A7";
+      case "water":
+        return "#2C78B5";
+      case "bug":
+        return "#5E8A04";
+      case "steel":
+        return "#446B7A";
+      case "fighting":
+        return "#AC2753";
+      case "ghost":
+        return "#395088";
+      case "flying":
+        return "#6B86B4";
+      case "dark":
+        return "#494452";
+      case "fairy":
+        return "#CD72C0";
+      case "psychic":
+        return "#D35763";
+      case "ground":
+        return "#B2592B";
+      default:
+        return "yellow";
     }
   }};
 `;
