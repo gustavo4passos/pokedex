@@ -37,7 +37,7 @@ const HomeScreen = (props: IHomeScreenProps) => {
 
   return (
     <Container>
-      <Title>Pokedex</Title>
+      <Title>POKEDEX</Title>
       <ListContainer
         data={Object.values(pokemonList)}
         renderItem={renderPokemon}
