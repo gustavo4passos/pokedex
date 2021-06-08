@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, ListRenderItem } from 'react-native';
 import { PokedexContext } from '../../context/provider';
+import { PokemonListItem } from '../../types';
 import PokemonCard from './PokemonCard';
 import SearchInput from './SearchInput';
 
@@ -14,38 +15,44 @@ interface IHomeScreenProps {
   navigation: any
 }
 
-export interface Pokemon {
-  name: string,
-  url: string
-}
-
 const HomeScreen = (props: IHomeScreenProps) => {
-  const { getPokemons, pokemonList, loadingPokemonList, setPage, page } = React.useContext(PokedexContext);
+  const { getPokemons, pokemonList, loadingPokemonList, getAllPokemons, setPage, page, filter, allPokemonsList, setFilter } = React.useContext(PokedexContext);
+  const [triggerRender, setTriggerRender] = useState(false);
 
   const searchPokemon = (pokemonName: string) => {
     console.log(`Buscou por ${pokemonName}`);
-    props.navigation.navigate('Details');
+    setFilter(pokemonName);
   };
 
   useEffect(() => {
+    console.log(page);
     const update = async () => {
-      await getPokemons(page);
+      console.log(page + 'desgraça');
+      await getPokemons();
+      setTriggerRender(!triggerRender);
     };
 
-    update();
-  }, [page]);
+    if (allPokemonsList.length) {
+      update();
+    }
+  }, [page, allPokemonsList, filter]);
 
-  const renderPokemon: ListRenderItem<Pokemon> = ({ item }) => (
+  useEffect(() => {
+    getAllPokemons();
+  }, []);
+
+  const renderPokemon: ListRenderItem<PokemonListItem> = ({ item }) => (
     <PokemonCard name={item.name}/>
   );
 
   return (
     <Container>
-      <Title>Pokedex</Title>
+      <Title>Pokedex gamer</Title>
       <SearchInput searchPokemon={searchPokemon} />
       <ListContainer
-        data={Object.values(pokemonList)}
+        data={pokemonList}
         renderItem={renderPokemon}
+        extraData={triggerRender}
         keyExtractor={(item, index) => `${item.name}-${index}`}
         onEndReachedThreshold={0.5}
         onEndReached={() => { if (!loadingPokemonList) { setPage(page + 1); } }}
