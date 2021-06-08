@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PokemonCard from './PokemonCard';
+import SearchInput from './SearchInput';
 
 import { ActivityIndicator, ListRenderItem } from 'react-native';
 
@@ -30,6 +31,10 @@ const HomeScreen = (props: IHomeScreenProps) => {
     setPokemons(pokemons.concat(response.data.results));
   };
 
+  const searchPokemon = (pokemonName: string) => {
+    console.log(`Buscou por ${pokemonName}`);
+  };
+
   useEffect(() => {
     setLoading(true);
     getPokemons();
@@ -43,6 +48,7 @@ const HomeScreen = (props: IHomeScreenProps) => {
   return (
     <Container>
       <Title>Pokedex</Title>
+      <SearchInput searchPokemon={searchPokemon} />
       <ListContainer
         data={pokemons}
         renderItem={renderPokemon}
