@@ -1,5 +1,5 @@
-import React from "react";
-import { View, Text } from "react-native";
+import React from 'react';
+import { View, Text } from 'react-native';
 
 import {
   ContainerTab,
@@ -7,8 +7,8 @@ import {
   TextBoldTab,
   TextRegularTab,
   HabilitiesText,
-  HabilitiesDiv,
-} from "./styles";
+  HabilitiesDiv
+} from './styles';
 
 // import { Container } from "./styles"
 
@@ -19,7 +19,7 @@ const AboutTab = (props: any) => (
       <TextRegularTab>vovodiaoidasodid</TextRegularTab>
     </DivTab>
     <DivTab>
-      <TextBoldTab>Peso {"   "} </TextBoldTab>
+      <TextBoldTab>Peso {'   '} </TextBoldTab>
       <TextRegularTab>{props.pokemon?.weight} gramas</TextRegularTab>
     </DivTab>
     <DivTab>
@@ -27,10 +27,10 @@ const AboutTab = (props: any) => (
       <TextRegularTab>{props.pokemon?.height} centímetros</TextRegularTab>
     </DivTab>
     <HabilitiesDiv>
-      <HabilitiesText>Habilidades{"\n"}</HabilitiesText>
+      <HabilitiesText>Habilidades{'\n'}</HabilitiesText>
       {props.pokemon?.abilities.map((item: any) => (
         // eslint-disable-next-line react/jsx-key
-        <TextRegularTab> {item.ability.name} </TextRegularTab>
+        <TextRegularTab key={item.ability.name}> {item.ability.name} </TextRegularTab>
       ))}
     </HabilitiesDiv>
   </ContainerTab>
