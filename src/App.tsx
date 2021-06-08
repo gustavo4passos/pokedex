@@ -2,6 +2,8 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import AppLoading from 'expo-app-loading';
+import Provider from './context/provider';
+
 import {
   useFonts,
   ChakraPetch_700Bold,
@@ -26,9 +28,9 @@ export default function App() {
   }
 
   return (
-    <>
+    <Provider>
       <MainNavigation />
       <StatusBar style="auto" />
-    </>
+    </Provider>
   );
 }

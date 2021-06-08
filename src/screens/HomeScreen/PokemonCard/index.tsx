@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator } from 'react-native';
-
-import api from '../../../services/api';
+import { PokedexContext } from '../../../context/provider';
 
 import {
   Container,
@@ -24,7 +23,6 @@ interface Pokemon {
     slot: number,
     type: {
       name: string,
-      url: string
     }
   }[]
 }
@@ -32,26 +30,24 @@ interface Pokemon {
 const PokemonCard = (props: IPokemonCardProrps) => {
   const [pokemon, setPokemon] = useState<Pokemon>();
   const [loading, setLoading] = useState(false);
-
-  const getInfos = async () => {
-    const response = await api.get(String(props.url));
-    setPokemon({
-      id: response.data.id,
-      types: response.data.types
-    });
-  };
+  const { getPokemonBasicData, getPokemonSpeciesData, pokemons, loadingPokemons } = React.useContext(PokedexContext);
 
   useEffect(() => {
-    setLoading(true);
-    getInfos();
-    setLoading(false);
-  }, []);
+    if (pokemons[props.name] === undefined) {
+      getPokemonBasicData(props.name);
+      getPokemonSpeciesData(props.name);
+    } else {
+      setPokemon(pokemons[props.name]);
+    }
+
+    setLoading(loadingPokemons.findIndex(name => name === props.name) !== -1);
+  }, [pokemons[props.name]]);
 
   return (
     <Container pokemonType={pokemon?.types[0].type.name || 'eletric'}>
       <Title>{props.name}</Title>
       {
-        loading
+        (loading || pokemons[props.name] === undefined)
           ? <ActivityIndicator color="#00ff00" size="large" />
           : <InfosContainer>
             <Thumb source={{ uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon?.id || 1}.png` }} />
