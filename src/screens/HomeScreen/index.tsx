@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { ActivityIndicator, ListRenderItem } from 'react-native';
-
+import { PokedexContext } from '../../context/provider';
 import PokemonCard from './PokemonCard';
-
-import api from '../../services/api';
 
 import {
   Container,
@@ -21,34 +19,29 @@ export interface Pokemon {
 }
 
 const HomeScreen = (props: IHomeScreenProps) => {
-  const [pokemons, setPokemons] = useState<Pokemon[]>([]);
-  const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);
-
-  const getPokemons = async () => {
-    const response = await api.get(`https://pokeapi.co/api/v2/pokemon?offset=${20 * page}`);
-    setPokemons(pokemons.concat(response.data.results));
-  };
+  const { getPokemons, pokemonList, loadingPokemonList, setPage, page } = React.useContext(PokedexContext);
 
   useEffect(() => {
-    setLoading(true);
-    getPokemons();
-    setLoading(false);
+    const update = async () => {
+      await getPokemons(page);
+    };
+
+    update();
   }, [page]);
 
   const renderPokemon: ListRenderItem<Pokemon> = ({ item }) => (
-    <PokemonCard name={item.name} url={item.url} />
+    <PokemonCard name={item.name}/>
   );
 
   return (
     <Container>
       <Title>Pokedex</Title>
       <ListContainer
-        data={pokemons}
+        data={Object.values(pokemonList)}
         renderItem={renderPokemon}
         keyExtractor={(item, index) => `${item.name}-${index}`}
         onEndReachedThreshold={0.5}
-        onEndReached={() => { if (!loading) { setPage(page + 1); } }}
+        onEndReached={() => { if (!loadingPokemonList) { setPage(page + 1); } }}
         numColumns={2}
         ListFooterComponent={<ActivityIndicator size="large" color="#00ff00" />}
       />
