@@ -31,6 +31,12 @@ export const TextRegularTab = styled.Text`
   text-transform: uppercase;
 `;
 
+export const HabilitiesTab = styled.Text`
+font-family: "ChakraPetch_400Regular";
+  text-align: center;
+  text-transform: uppercase;
+`;
+
 export const HabilitiesText = styled.Text`
   font-family: "ChakraPetch_700Bold";
   text-transform: uppercase;

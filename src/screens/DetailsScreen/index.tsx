@@ -115,7 +115,7 @@ const DetailsScreen = ({ navigation, route }) => {
           <Subheader>
             {currentPokemon?.types.map((item: any) => (
               // eslint-disable-next-line react/jsx-key
-              <TypeTag pokemonType={item.type.name}>
+              <TypeTag key={item.type.name} pokemonType={item.type.name}>
                 <TypeText>{item.type.name}</TypeText>
               </TypeTag>
             ))}

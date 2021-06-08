@@ -7,7 +7,8 @@ import {
   TextBoldTab,
   TextRegularTab,
   HabilitiesText,
-  HabilitiesDiv
+  HabilitiesDiv,
+  HabilitiesTab
 } from './styles';
 
 // import { Container } from "./styles"
@@ -30,7 +31,7 @@ const AboutTab = (props: any) => (
       <HabilitiesText>Habilidades</HabilitiesText>
       {props.pokemon?.abilities.map((item: any) => (
         // eslint-disable-next-line react/jsx-key
-        <TextRegularTab key={item.ability.name}> {item.ability.name} </TextRegularTab>
+        <HabilitiesTab key={item.ability.name}> {item.ability.name} </HabilitiesTab>
       ))}
     </HabilitiesDiv>
   </ContainerTab>
