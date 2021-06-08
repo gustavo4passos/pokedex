@@ -23,7 +23,9 @@
   ],
   "rules": {
     "no-use-before-define": "off",
+    "space-before-function-paren": "off",
     "@typescript-eslint/no-use-before-define": "warn",
+    "react/prop-types": "off",
     "indent": [
       "error",
       2
