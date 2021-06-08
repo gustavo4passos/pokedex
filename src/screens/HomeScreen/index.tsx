@@ -17,7 +17,7 @@ interface IHomeScreenProps {
 
 const HomeScreen = (props: IHomeScreenProps) => {
   const { getPokemons, pokemonList, loadingPokemonList, getAllPokemons, setPage, page, filter, allPokemonsList, setFilter } = React.useContext(PokedexContext);
-  const [triggerRender, setTriggerRender] = useState(false);
+  // const [triggerRender, setTriggerRender] = useState(false);
 
   const searchPokemon = (pokemonName: string) => {
     console.log(`Buscou por ${pokemonName}`);
@@ -26,10 +26,11 @@ const HomeScreen = (props: IHomeScreenProps) => {
 
   useEffect(() => {
     console.log(page);
-    const update = async () => {
+    const update = () => {
       console.log(page + 'desgraça');
-      await getPokemons();
-      setTriggerRender(!triggerRender);
+      getPokemons();
+      console.log('GETOU');
+      // setTriggerRender(!triggerRender);
     };
 
     if (allPokemonsList.length) {
@@ -49,12 +50,12 @@ const HomeScreen = (props: IHomeScreenProps) => {
 
   return (
     <Container>
-      <Title>Pokedex gamer</Title>
+      <Title>Pokedex</Title>
       <SearchInput searchPokemon={searchPokemon} />
       <ListContainer
         data={pokemonList}
         renderItem={renderPokemon}
-        extraData={triggerRender}
+        // extraData={triggerRender}
         keyExtractor={(item, index) => `${item.name}-${index}`}
         onEndReachedThreshold={0.5}
         onEndReached={() => { if (!loadingPokemonList) { setPage(page + 1); } }}

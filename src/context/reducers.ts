@@ -5,6 +5,7 @@ export interface IRootState {
   allPokemonsList: PokemonListItem[];
   pokemonList: PokemonListItem[];
   pokemonsByName: PokemonByName;
+  pokemonsSpeciesByName: Record<string, object>;
 
   page: number;
   filter: string;
@@ -19,7 +20,7 @@ export const initialState: IRootState = {
   allPokemonsList: [],
   pokemonList: [],
   pokemonsByName: {},
-
+  pokemonsSpeciesByName: {},
   page: 0,
   filter: '',
 
@@ -36,7 +37,7 @@ export const reducer = (state: IRootState, action: any): IRootState => {
 
     const updatedPokemonList = pokemonList.concat(
       allPokemonsList.filter((pokemon) =>
-        pokemon.name.includes(filter)
+        pokemon.name.startsWith(filter)
       ).slice(page * 20, (page + 1) * 20)
     );
 
@@ -91,8 +92,8 @@ export const reducer = (state: IRootState, action: any): IRootState => {
   case actions.GET_POKEMON_SPECIES_SUCCESS:
     return {
       ...state,
-      pokemonSpecies: {
-        ...state.pokemonSpecies,
+      pokemonsSpeciesByName: {
+        ...state.pokemonsSpeciesByName,
         [action.value.name]: action.value
       },
       loadingPokemonSpecies: state.loadingPokemonSpecies.filter(
